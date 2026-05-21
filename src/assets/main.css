@@ -238,6 +238,153 @@ h3 {
   background: #eef6f4;
 }
 
+.btn-danger {
+  min-height: 42px;
+  border: 1px solid #bb3e3e;
+  border-radius: 8px;
+  background: #bb3e3e;
+  color: #ffffff;
+  padding: 10px 16px;
+  font-weight: 700;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #942f2f;
+}
+
+.btn-compact {
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.directory-controls {
+  display: grid;
+  gap: 18px;
+}
+
+.headcount {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.headcount .eyebrow {
+  flex-basis: 100%;
+  margin-bottom: 0;
+}
+
+.headcount strong {
+  color: #176b5b;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.headcount span {
+  color: #5c6966;
+}
+
+.control-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 170px 150px auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.search-field {
+  display: grid;
+  gap: 7px;
+}
+
+.search-field span {
+  color: #243a35;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.search-field input,
+.search-field select {
+  min-height: 42px;
+  border: 1px solid #b9c8c4;
+  border-radius: 8px;
+  padding: 9px 11px;
+  background: #ffffff;
+}
+
+.control-button {
+  min-width: 86px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.employee-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+.employee-table th,
+.employee-table td {
+  border-bottom: 1px solid #dde6e3;
+  padding: 14px 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.employee-table th {
+  color: #41524e;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.employee-table tbody tr:hover {
+  background: #f5faf8;
+}
+
+.employee-table .is-inactive {
+  color: #6f7876;
+  background: #fafafa;
+}
+
+.employee-meta {
+  display: block;
+  margin-top: 4px;
+  color: #65736f;
+  font-size: 0.88rem;
+}
+
+.salary-cell {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.badge-active {
+  background: #e0f5ec;
+  color: #176b5b;
+}
+
+.badge-inactive {
+  background: #f3e2e2;
+  color: #943838;
+}
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+}
+
 .state-loading,
 .state-error,
 .empty-state {
@@ -293,5 +440,13 @@ h3 {
 
   .status-toggle {
     padding-top: 0;
+  }
+
+  .control-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .control-button {
+    width: 100%;
   }
 }

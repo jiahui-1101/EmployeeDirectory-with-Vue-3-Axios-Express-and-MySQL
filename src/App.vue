@@ -1,6 +1,8 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import EmployeeForm from './components/EmployeeForm.vue'
+import EmployeeList from './components/EmployeeList.vue'
+import SearchSort from './components/SearchSort.vue'
 import {
   createEmployee,
   deleteEmployee,
@@ -147,11 +149,21 @@ onMounted(() => {
 
       <section class="panel">
         <div class="panel-body">
-          <p class="eyebrow">Directory status</p>
-          <h2>{{ totalActive }} active employees</h2>
-          <p>{{ employees.length }} total records loaded.</p>
+          <SearchSort
+            :total-active="totalActive"
+            :total-all="employees.length"
+            :loading="loading"
+            @search="handleSearch"
+          />
         </div>
       </section>
+
+      <EmployeeList
+        :employees="employees"
+        :loading="loading"
+        @edit="handleEdit"
+        @delete="handleDelete"
+      />
     </main>
 
     <footer class="app-footer">
