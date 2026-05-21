@@ -1,0 +1,24 @@
+{
+  "name": "employee-directory-wong-jia-hui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chapter 8 Employee Directory with Vue 3, Axios, Express and MySQL",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "server": "node server/index.js",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^5.2.4",
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "mysql2": "^3.14.1",
+    "vite": "^6.3.5",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {}
+}
