@@ -13,6 +13,10 @@ const props = defineProps({
   saving: {
     type: Boolean,
     default: false
+  },
+  savedVersion: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -62,6 +66,16 @@ watch(
     }
   },
   { deep: true }
+)
+
+watch(
+  () => props.savedVersion,
+  () => {
+    if (!isEditing.value) {
+      form.value = blankEmployee()
+      errors.value = {}
+    }
+  }
 )
 
 function validateForm() {
@@ -130,10 +144,6 @@ function submitForm() {
     salary: Number(form.value.salary),
     active: Boolean(form.value.active)
   })
-
-  if (!isEditing.value) {
-    form.value = blankEmployee()
-  }
 }
 
 function cancelEdit() {

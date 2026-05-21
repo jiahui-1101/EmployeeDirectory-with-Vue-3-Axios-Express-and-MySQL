@@ -21,6 +21,7 @@ const loading = ref(false)
 const saving = ref(false)
 const errorMessage = ref('')
 const serverErrors = ref({})
+const savedVersion = ref(0)
 const filters = ref({
   q: '',
   sortBy: 'empId',
@@ -59,6 +60,7 @@ async function handleSave(employee) {
     }
 
     await loadEmployees()
+    savedVersion.value += 1
   } catch (error) {
     if (error.response?.status === 400 && error.response.data?.errors) {
       serverErrors.value = error.response.data.errors
@@ -141,6 +143,7 @@ onMounted(() => {
             :editing-employee="editingEmployee"
             :server-errors="serverErrors"
             :saving="saving"
+            :saved-version="savedVersion"
             @save="handleSave"
             @cancel="handleCancel"
           />
