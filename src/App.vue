@@ -1,8 +1,104 @@
 <script setup>
+import { computed, onMounted, ref } from 'vue'
+import {
+  createEmployee,
+  deleteEmployee,
+  getEmployees,
+  updateEmployee
+} from './api/employeeApi.js'
+
 const student = {
   name: 'Wong Jia Hui',
   matric: 'A24CS0312'
 }
+
+const employees = ref([])
+const editingEmployee = ref(null)
+const loading = ref(false)
+const saving = ref(false)
+const errorMessage = ref('')
+const serverErrors = ref({})
+const filters = ref({
+  q: '',
+  sortBy: 'empId',
+  order: 'asc'
+})
+
+const totalActive = computed(() =>
+  employees.value.filter((employee) => Boolean(employee.active)).length
+)
+
+async function loadEmployees(nextFilters = filters.value) {
+  loading.value = true
+  errorMessage.value = ''
+  filters.value = { ...nextFilters }
+
+  try {
+    employees.value = await getEmployees(filters.value)
+  } catch (error) {
+    errorMessage.value = error.userMessage || 'Unable to load employee records.'
+  } finally {
+    loading.value = false
+  }
+}
+
+async function handleSave(employee) {
+  saving.value = true
+  errorMessage.value = ''
+  serverErrors.value = {}
+
+  try {
+    if (editingEmployee.value) {
+      await updateEmployee(editingEmployee.value.id, employee)
+      editingEmployee.value = null
+    } else {
+      await createEmployee(employee)
+    }
+
+    await loadEmployees()
+  } catch (error) {
+    if (error.response?.status === 400 && error.response.data?.errors) {
+      serverErrors.value = error.response.data.errors
+    } else {
+      errorMessage.value = error.userMessage || 'Unable to save the employee.'
+    }
+  } finally {
+    saving.value = false
+  }
+}
+
+function handleEdit(employee) {
+  editingEmployee.value = { ...employee }
+  serverErrors.value = {}
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+function handleCancel() {
+  editingEmployee.value = null
+  serverErrors.value = {}
+}
+
+async function handleDelete(employee) {
+  const confirmed = window.confirm(`Delete ${employee.name}? This cannot be undone.`)
+  if (!confirmed) return
+
+  errorMessage.value = ''
+
+  try {
+    await deleteEmployee(employee.id)
+    await loadEmployees()
+  } catch (error) {
+    errorMessage.value = error.userMessage || 'Unable to delete the employee.'
+  }
+}
+
+function handleSearch(nextFilters) {
+  loadEmployees(nextFilters)
+}
+
+onMounted(() => {
+  loadEmployees()
+})
 </script>
 
 <template>
@@ -25,12 +121,25 @@ const student = {
     </header>
 
     <main class="app-main">
+      <div v-if="loading" class="state-loading" role="status">
+        Loading employee records...
+      </div>
+
+      <div v-if="errorMessage" class="state-error" role="alert">
+        <span>{{ errorMessage }}</span>
+        <button class="btn-dismiss" type="button" @click="errorMessage = ''">
+          Dismiss
+        </button>
+      </div>
+
       <section class="panel">
         <div class="panel-body">
-          <h2>Ready for Employee Records</h2>
+          <p class="eyebrow">Directory status</p>
+          <h2>{{ totalActive }} active employees</h2>
           <p>
-            The employee form, search controls, and directory table will be added in
-            the next implementation steps.
+            {{ employees.length }} total records loaded. Form, search controls,
+            and the employee list will connect to this parent state in the next
+            commits.
           </p>
         </div>
       </section>
