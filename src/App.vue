@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+import EmployeeForm from './components/EmployeeForm.vue'
 import {
   createEmployee,
   deleteEmployee,
@@ -134,13 +135,21 @@ onMounted(() => {
 
       <section class="panel">
         <div class="panel-body">
+          <EmployeeForm
+            :editing-employee="editingEmployee"
+            :server-errors="serverErrors"
+            :saving="saving"
+            @save="handleSave"
+            @cancel="handleCancel"
+          />
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-body">
           <p class="eyebrow">Directory status</p>
           <h2>{{ totalActive }} active employees</h2>
-          <p>
-            {{ employees.length }} total records loaded. Form, search controls,
-            and the employee list will connect to this parent state in the next
-            commits.
-          </p>
+          <p>{{ employees.length }} total records loaded.</p>
         </div>
       </section>
     </main>
