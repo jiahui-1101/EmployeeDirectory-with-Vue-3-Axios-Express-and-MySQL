@@ -98,14 +98,6 @@ http://localhost:5174
 - Sort columns are whitelisted on the server before being used in `ORDER BY`.
 - MySQL date values are returned as strings to keep `hireDate` in `YYYY-MM-DD` format.
 
-## Project Contribution
-
-| Contributor | Role | Contributions evidenced in the repository | Visible non-merge commits |
-|---|---|---|---:|
-| **Wong Jia Hui** | **Individual Full-Stack Developer** | Designed and implemented the Vue 3 interface, Axios service, Express REST API, MySQL schema and prepared queries, CRUD/search/sort flows, validation, responsive styling, verification and report. | **14 / 14** |
-
-<sub>This is an individual coursework project; no additional contributor identity is present in the public Git history.</sub>
-
 ## Final Submission
 
 The final ZIP should be named:
